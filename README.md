@@ -9,6 +9,7 @@ Matthew Davis
 - [Principal Components](#principal-components)
 - [Dendrograms](#dendrograms)
 - [Conclusion](#conclusion)
+- [Resources](#resources)
 
 ## Exploring Data
 

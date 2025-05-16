@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 -   [Principal Components](#principal-components)
 -   [Dendrograms](#dendrograms)
 -   [Conclusion](#conclusion)
+-   [Resources](#resources)
 
 ## Exploring Data {#explore}
 

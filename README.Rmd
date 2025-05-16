@@ -215,7 +215,7 @@ color_map = {
 
 #### Plot the PCA
 
-```{python}
+```{python, eval = FALSE}
 # Plot PCA 
 plt.figure(figsize=(7, 6))
 
@@ -282,7 +282,7 @@ linkage_matrix = linkage(distances, method='average')
 
 Now that we have distances and clusters, we can plot a dendrogram!
 
-```{python}
+```{python, eval = FALSE}
 # Plot the dendrogram
 plt.figure(figsize=(10, 6))
 dend_data = dendrogram(linkage_matrix, labels=df["Gene"].tolist())

@@ -346,8 +346,6 @@ plt.grid(False)
 plt.show()
 ```
 
-<img src="README_files/figure-gfm/unnamed-chunk-6-1.png" width="672" />
-
 ### Questions about the PCA
 
 **Discussion is encouraged**
@@ -435,8 +433,6 @@ plt.ylabel("Distance")
 plt.tight_layout()
 plt.show()
 ```
-
-<img src="README_files/figure-gfm/unnamed-chunk-9-3.png" width="960" />
 
 ### Questions about dendrograms
 

@@ -5,8 +5,8 @@ Matthew Davis
 
 ## Table of Contents
 
-- [Exploring Data](#explore)
-- [Principal Components](#pcs)
+- [Exploring Data](#exploring-data)
+- [Principal Components](#principal-components)
 - [Dendrograms](#dendrograms)
 - [Conclusion](#conclusion)
 

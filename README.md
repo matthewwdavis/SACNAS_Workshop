@@ -22,16 +22,19 @@ and organisms are. A good starting point is to use a tool from the
 National Center for Biotechnology Information (NCBI) called Basic Local
 Alignment Search Tool (BLAST).
 
-### A quick refresher on BLAST
+### A quick lesson about BLAST
 
-BLAST is an incredibly useful and cool tool. We covered how BLAST works
-in a little more detail during the lecture, but as a quick reminder it
-basically tells us how similar a sequence we provide (called the query)
-is to the other sequences on NCBI. In 2023, NCBI GenBank had over 2.9
-billion sequences for over half a million species, and that number has
-only grown! I don’t think its hyperbole to say that most of the known
-genetic sequence in the world is hosted on NCBI, and we can search
-through it all.
+BLAST is an incredibly useful and cool tool. We didn’t quite get a
+chance to cover how BLAST worksduring the lecture (sorry!), but a quick
+rundown is that it basically tells us how similar a sequence we provide
+(called the query) is to the other sequences on NCBI. Please look at
+[slides 8-13
+here](https://jnmaloof.github.io/BIS180L_web/slides/03_BLAST2020.pdf) so
+that you can better understand how the algorithm works. In 2023, NCBI
+GenBank had over 2.9 billion sequences for over half a million species,
+and that number has only grown! I don’t think its hyperbole to say that
+most of the known genetic sequence in the world is hosted on NCBI, and
+we can search through it all.
 
 ### Using NCBI BLAST to identify our sequences
 
@@ -436,11 +439,6 @@ plt.show()
 
 17. For the dendrogram, do you think a larger or smaller kmer size
     better? Is there a difference? If so, why do you think?
-
-**Bonus question:** Change the colors of the large clades in the
-dengrogram to best reflect the larger scale classifications of the
-organisms. Feel free to use whatever kmer length you think makes the
-most sense. What colors did you choose and why?
 
 ## Conclusion
 

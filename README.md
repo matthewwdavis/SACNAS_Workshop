@@ -39,18 +39,12 @@ To try and identify what these genes are, let’s try using BLAST. When
 you go to the [BLAST website](https://blast.ncbi.nlm.nih.gov/Blast.cgi)
 you should see something like this:
 
-<figure>
-<img src="./Images/blast_homepage.png" alt="Blast Homepage" />
-<figcaption aria-hidden="true">Blast Homepage</figcaption>
-</figure>
+![](./Images/blast_homepage.png)
 
 Click on the nucleotide BLAST button so that we can compare nucleotides
 to other nucleotides. That page looks like this:
 
-<figure>
-<img src="./Images/blastn_page.png" alt="Nucleotide BLAST" />
-<figcaption aria-hidden="true">Nucleotide BLAST</figcaption>
-</figure>
+![](./Images/blastn_page.png)
 
 Inside of this page, copy the sequence for gene A and paste it into the
 box that says enter query sequence. Then scroll down and click the large
@@ -58,10 +52,7 @@ blue BLAST button!
 
 You’ll see a loading screen that looks like this:
 
-<figure>
-<img src="./Images/blast_loading.png" alt="BLAST Loading" />
-<figcaption aria-hidden="true">BLAST Loading</figcaption>
-</figure>
+![](./Images/blast_loading.png)
 
 This may take a few seconds, but remember we are searching for matches
 across all of the \> 2.9 billion sequences hosted by NCBI, so this speed
@@ -71,10 +62,7 @@ When it is complete, scroll down a little and you will see a list of
 sequences that match. **Note:** The following image is NOT gene A, it is
 a different sequence I used as an example.
 
-<figure>
-<img src="./Images/blast_results.png" alt="Blast Results" />
-<figcaption aria-hidden="true">Blast Results</figcaption>
-</figure>
+![](./Images/blast_results.png)
 
 The results will be separated into columns, with the first column being
 the description of the sequence and the second being the scientific name

@@ -31,23 +31,23 @@ BLAST is an incredibly useful and cool tool. We covered how BLAST works in a lit
 
 To try and identify what these genes are, let's try using BLAST. When you go to the [BLAST website](https://blast.ncbi.nlm.nih.gov/Blast.cgi) you should see something like this:
 
-![Blast Homepage](./Images/blast_homepage.png)
+![](./Images/blast_homepage.png)
 
 Click on the nucleotide BLAST button so that we can compare nucleotides to other nucleotides. That page looks like this:
 
-![Nucleotide BLAST](./Images/blastn_page.png)
+![](./Images/blastn_page.png)
 
 Inside of this page, copy the sequence for gene A and paste it into the box that says enter query sequence. Then scroll down and click the large blue BLAST button!
 
 You'll see a loading screen that looks like this:
 
-![BLAST Loading](./Images/blast_loading.png)
+![](./Images/blast_loading.png)
 
 This may take a few seconds, but remember we are searching for matches across all of the \> 2.9 billion sequences hosted by NCBI, so this speed is incredibly impressive.
 
 When it is complete, scroll down a little and you will see a list of sequences that match. **Note:** The following image is NOT gene A, it is a different sequence I used as an example.
 
-![Blast Results](./Images/blast_results.png)
+![](./Images/blast_results.png)
 
 The results will be separated into columns, with the first column being the description of the sequence and the second being the scientific name of the organism. The other columns to par the most attention to are E value (lower is better), percent identity (higher is better), and accession length (higher is better). Typically, the best match will be the top result, but that isn't always the case! It's important to look through several of the better results to try and determine your sequence identity.
 

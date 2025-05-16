@@ -34,26 +34,103 @@ through it all.
 
 ### Using NCBI BLAST to identify our sequences
 
-Talk about how to use blast Add in some screenshots so that they can
-see. Make sure they are keeping track of their data! Please copy this
-google sheet and fill it out
+To try and identify what these genes are, let’s try using BLAST. When
+you go to the [BLAST website](https://blast.ncbi.nlm.nih.gov/Blast.cgi)
+you should see something like this:
+
+<figure>
+<img src="./Images/blast_homepage.png" alt="Blast Homepage" />
+<figcaption aria-hidden="true">Blast Homepage</figcaption>
+</figure>
+
+Click on the nucleotide BLAST button so that we can compare nucleotides
+to other nucleotides. That page looks like this:
+
+<figure>
+<img src="./Images/blastn_page.png" alt="Nucleotide BLAST" />
+<figcaption aria-hidden="true">Nucleotide BLAST</figcaption>
+</figure>
+
+Inside of this page, copy the sequence for gene A and paste it into the
+box that says enter query sequence. Then scroll down and click the large
+blue BLAST button!
+
+You’ll see a loading screen that looks like this:
+
+<figure>
+<img src="./Images/blast_loading.png" alt="BLAST Loading" />
+<figcaption aria-hidden="true">BLAST Loading</figcaption>
+</figure>
+
+This may take a few seconds, but remember we are searching for matches
+across all of the \> 2.9 billion sequences hosted by NCBI, so this speed
+is incredibly impressive.
+
+When it is complete, scroll down a little and you will see a list of
+sequences that match. **Note:** The following image is NOT gene A, it is
+a different sequence I used as an example.
+
+<figure>
+<img src="./Images/blast_results.png" alt="Blast Results" />
+<figcaption aria-hidden="true">Blast Results</figcaption>
+</figure>
+
+The results will be separated into columns, with the first column being
+the description of the sequence and the second being the scientific name
+of the organism. The other columns to par the most attention to are E
+value (lower is better), percent identity (higher is better), and
+accession length (higher is better). Typically, the best match will be
+the top result, but that isn’t always the case! It’s important to look
+through several of the better results to try and determine your sequence
+identity.
+
+Do this for every gene in the sequences list, there are 10 total (a-j).
+Create a Google Sheet with the following headers and fill out the
+information for each gene:
+
+1.  Gene
+2.  Scientific Name
+3.  Common Name (**Note:** to identify the common name of the organism,
+    try Google the scientific name you discover.)
+4.  Organism Category (**Note:** These are broad classifications that
+    make sense to you. For example, if an organism is a bear, a nice
+    broad classification may be mammal.)
+5.  Gene Name (**Note:** This will be in the description.)
+6.  Gene Function (**Note:** This will probably take some light
+    research. Feel free to Google the gene name you uncover.)
+
+Feel free to work as a group!
+
+Once you finish doing this, lets discuss some questions as a group:
+
+1.  What did you notice about the genes?
+
+2.  How is this possible?
+
+3.  Why may this be the case?
 
 ## Principal Components
+
+Now that we know what these genes are, we may also want to find out how
+these genes are related to one another. One way we can do that is by
+looking at principal components (PCs). We talked a little about PCs
+already during the lecture, but the basics are that principal components
+explain the variance of the variables. So in the scatter plot, if points
+are close together, they are more similar. If points are farther apart,
+they are less similar. Let’s calculate PCs and plot to see how these may
+be related.
 
 ### Load modules
 
 Here are the modules we need to load so that we can plot our PCA. All of
-these should be available in [Pickcode](https://pickcode.io/)! I also
-tried to make sure I was commenting what the modules were being used
-for. This can be really helpful when going back or sharing your code
-with other scientists.
+these should be available in [Pickcode](https://pickcode.io/)!
 
 ``` python
-import pandas as pd # Used to create data tables
-import numpy as np # Used for
-from collections import Counter # Used for
-from itertools import product # Used for
-import matplotlib.pyplot as plt # Used for plotting
+import pandas as pd
+import numpy as np
+from collections import Counter
+from itertools import product
+import matplotlib.pyplot as plt
 ```
 
 ### Generating our data table
@@ -104,27 +181,38 @@ print(df)
 
 ### Counting Kmers
 
-Now that we have our data frame of genes and sequences,
+Great, we have our data frame of genes and sequences! Now what do we do
+with it? Unfortunately, we can’t get PCs directly from the sequenced
+basepairs, we need to convert them into a numeric value first. One way
+we can do that is by using kmers. Again, we’ve talked about kmers
+already, but as a quick reminder a kmer is any possible sequence of that
+length. For example, a 1-mer can be A, T, C, or G. A 2-mer can be AA,
+AT, AC, AG, TA, TT, TC, TG, CA, CT, CC, CG, GA, GT, GC, or GG. You can
+have a kmer of any length. We can identify all possible kmers, then
+count the occurrence of each kmer in each sequence. We can then use
+those numbers to calculate our principal components.
 
 ``` python
-## Kmer analysis
-# Define kmer functions
+# First we define functions for kmers
+## Generates all possible DNA kmers of length k
 def all_possible_kmers(k):
     return [''.join(p) for p in product('ATCG', repeat=k)]
 
+## Counts the frequency of all kmers in the sequence
 def get_kmer_counts(seq, k):
     kmers = [seq[i:i+k] for i in range(len(seq) - k + 1)]
     return Counter(kmers)
 
-# Convert sequences to kmer count vectors
+# All possible kmers
 k = 3
 kmer_list = all_possible_kmers(k)
 
+# Convert sequences into numeric vector. 
 def sequence_to_vector(seq):
     counts = get_kmer_counts(seq, k)
     return [counts.get(kmer, 0) for kmer in kmer_list]
 
-# Create k-mer matrix
+# Create kmer matrix
 kmer_matrix = df["Sequence"].apply(sequence_to_vector)
 X = np.vstack(kmer_matrix)
 ```
@@ -133,22 +221,27 @@ X = np.vstack(kmer_matrix)
 
 **Discussion is encouraged!**
 
-1.  What kmer size did we use in this analysis?
+4.  What kmer size did we use in this analysis?
 
-2.  Is there a calculation you can think of that would tell you the
+5.  Is there a calculation you can think of that would tell you the
     number of possible nucleotide combinations for any kmer? Using that
     calculation, how many combinations are possible for a 6-mer?
     **Hint:** There are 4 nucleotides
 
-3.  Assuming perfect linear scaling, if calculating all possible 3-mers
+6.  Assuming perfect linear scaling, if calculating all possible 3-mers
     takes 1 second, how long would it take to calculate all possible
     21-mers?
 
-4.  Can you think of some reason you would want certain kmer sizes?
+7.  Can you think of some reason you would want certain kmer sizes?
     Think about what the benefits and downsides of what using a larger
     kmer size might be. What about a smaller kmer size?
 
-# Calculating principal components
+### Calculating principal components
+
+Now that we have our kmer counts, we can calculate our principal
+components. What matters in this next code chunk is that we are
+generating PCs 1-5. PC 1 will be the component that explains the most
+variance, PC 2 will explain the second most variance, and so on.
 
 ``` python
 # Center the data
@@ -211,9 +304,12 @@ print(df.drop(df.columns[1], axis=1))
     ## 8    I -69.162152 -21.279637 -12.931740   2.193913   7.165352
     ## 9    J -32.044429   4.106569   4.355619   0.166546  -8.404887
 
-# Plot principal components
+### Plot principal components
 
-## Create color map for plotting
+Now that we have a data frame complete with principal components, we can
+visualize the data!
+
+#### Create color map
 
 ``` python
 color_map = {
@@ -230,7 +326,7 @@ color_map = {
 }
 ```
 
-# Plotting
+#### Plot the PCA
 
 ``` python
 # Plot PCA 
@@ -255,39 +351,43 @@ plt.show()
 
 **Discussion is encouraged**
 
-5.  In science, visualizations are critical for understanding.
-    Currently, the PCA coloring is fairly useless. Change the color of
-    points on the scatterplot to reflect the larger classifications of
-    the organisms that you discovered in our initial exploration. What
-    classifications did you choose, and what color is each
+8.  In science, visualizations are critical for understanding.
+    Currently, the PCA coloring is fairly useless because it doesn’t
+    provide any additional information. Change the color of points on
+    the scatterplot to reflect the larger classifications of the
+    organisms that you discovered in our initial exploration of these
+    genes. What classifications did you choose, and what color is each
     classification?
 
 **Bonus question:** Add in a column for classification to the data
 frame. Color by that column instead of gene name.
 
-6.  Now that the colors mean something, look back at what you learned
+9.  Now that the colors mean something, look back at what you learned
     from BLAST. Does the PCA make sense? Why or why not?
 
-7.  Go back and re-run the analysis with several different kmer lengths.
+10. Go back and re-run the analysis with several different kmer lengths.
     Take note of what is happening in the PCA as you change kmer size.
     You’ll need to look through the code and decide where we are setting
     the kmer length. **Hint:** your answer to question 1 should help
     you. **Important:** Try not to go higher than 6. You can if you
     want, but you may be waiting a while.
 
-8.  What kmer sizes did you try? Did you notice anything different
+11. What kmer sizes did you try? Did you notice anything different
     happening in the pca with larger kmers? What about with smaller
     kmers?
 
-9.  For this use case, do you think a larger or smaller kmer size
+12. For this use case, do you think a larger or smaller kmer size
     better? Is there a difference? If so, why do you think?
 
 ## Dendrograms
 
-Explain dendrograms and how they are like phylogenies.
+A dendrogram is a tree diagram that shows relationships, and we can use
+these diagrams to infer evolutionary relatedness. Let’s make a
+dendrogram of these genes so we can get a better idea about how they are
+related!
 
-Before starting, lets reset the kmer length to the original value and
-run all code up to this point again.
+Before starting, we should reset the kmer length to their original value
+(look back at question 4) and run all code up to this point again.
 
 ### Modules needed for creating phylogenies
 
@@ -299,21 +399,31 @@ from scipy.spatial.distance import pdist, squareform # To calculate distance
 from scipy.cluster.hierarchy import linkage, dendrogram # To build a phylogeny building
 ```
 
-### Calculating distance and creating a matrix
+### Calculating distance and creating a linkage matrix
 
-Talk about calculating distance. What is euclidean distance and why the
-matrix. Then the linkage matrix.
+In order to make a dendrogram, we need to figure out how closely related
+each gene is. To do this, we calculate the euclidean distance, or the
+distance between two points in space. If our kmer counts are points in
+space, the euclidean distance is the distance between those points. From
+those distances, we can cluster the genes. So genes with shorter
+distances between them are more likely to be clustered together, and
+genes with greater distances are less likely to be clustered.
 
 ``` python
-# Compute a pairwise distance matrix using euclidean distance
+# This computes a distance matrix using euclidean distance
 distances = pdist(X, metric='euclidean')
 dist_matrix = squareform(distances)
 
-# Generate linkage matrix (e.g., using UPGMA)
+# Generate a linkage matrix
 linkage_matrix = linkage(distances, method='average')
 ```
 
+13. Based on the description of what we are doing, what is happening in
+    the linkage matrix?
+
 ### Plotting the dendrogram
+
+Now that we have distances and clusters, we can plot a dendrogram!
 
 ``` python
 # Plot the dendrogram
@@ -329,14 +439,17 @@ plt.show()
 
 ### Questions about dendrograms
 
-1.  Based on what organisms you know the Genes are from, do these
-    relationships make sense to you? Why or why not?
+14. Describe the relationships you observe in the dendrogram.
 
-2.  Like in question 7, go back and re-run the analysis with several
+15. Based on what you discovered in BLAST about the organisms you know
+    the genes are from, do these relationships make sense to you? Why or
+    why not?
+
+16. Like in question 10, go back and re-run the analysis with several
     different kmer lengths. What kmer sizes did you try? Is anything
     changing in the dendrogram?
 
-3.  For the dendrogram, do you think a larger or smaller kmer size
+17. For the dendrogram, do you think a larger or smaller kmer size
     better? Is there a difference? If so, why do you think?
 
 **Bonus question:** Change the colors of the large clades in the
@@ -346,21 +459,23 @@ most sense. What colors did you choose and why?
 
 ## Conclusion
 
-Now we’ve seen a brief intro on how we can use computer science to
-understand biological relationships! This is just a tiny idea of some of
-the things that scientist do, and you’ll see more in your next workshop
-with Ethan. If you want to see more about bioinformatics, check out the
-resources tab below.
+Congratulations, you just completed your first bioinformatics task!
+We’ve seen a brief intro on how we can use computer science to
+understand biological relationships, but this is just a tiny idea of
+some of the things that scientist do. If you want to see more about
+bioinformatics, check out the resources section below. Some other
+languages that are often used in bioinformatics are R and Bash. If
+you’re interested, those are some good languages to start learning! Now
+that you know one language, all the others become much easier.
 
 ## Resources
 
-- R for data science
+- [R for data science](https://r4ds.had.co.nz/)
 
-- R textbook
+- [BIS180L (a UC Davis Genomics course that is left up as a resource for
+  everyone)](https://jnmaloof.github.io/BIS180L_web/)
 
-- BIS180L website
+- [swirl (an R package used for learning R)](https://swirlstats.com/)
 
-- Julins site with r tutorials
-
-- Maybe this site. Preface that I have never used it, but it looks good
-  (<https://github.com/ossu/bioinformatics>)
+- [Dr. Maloof’s website (lots of great
+  tutorials)](https://malooflab.ucdavis.edu/apps/)

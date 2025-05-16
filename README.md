@@ -28,7 +28,7 @@ BLAST is an incredibly useful and cool tool. We didn’t quite get a
 chance to cover how BLAST worksduring the lecture (sorry!), but a quick
 rundown is that it basically tells us how similar a sequence we provide
 (called the query) is to the other sequences on NCBI. Please look at
-[slides 8-13
+[slides 8-14
 here](https://jnmaloof.github.io/BIS180L_web/slides/03_BLAST2020.pdf) so
 that you can better understand how the algorithm works. In 2023, NCBI
 GenBank had over 2.9 billion sequences for over half a million species,
